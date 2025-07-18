@@ -1,0 +1,151 @@
+ git config --global user.name “username”
+
+ git config --global user.email “email”
+
+
+
+git config --local --list
+
+git branch
+
+git branch -M main (rename branch)
+
+git checkout main (to navigate)
+
+
+git checkout -b feature (create branch)
+
+git branch -d <branch-name> (delete branch)
+
+
+
+
+local -> remote   git push origin main
+remote -> local   git pull origin main
+
+
+
+
+
+ Resolving merge conflicts: An event that takes place when git is unable to automatically resolve differences in code between two commits.
+
+mkdir merge-conflict-demo
+cd merge-conflict-demo
+git init
+git branch -M main
+echo "Welcome to the project!" > greeting.txt
+git add greeting.txt
+git commit -m "Initial commit with greeting"
+
+new branch:
+git checkout -b feature
+
+echo "Hello from the feature branch!" > greeting.txt
+git add greeting.txt
+git commit -m "Update greeting in feature branch"
+
+git checkout main
+echo "Hello from the main branch!" > greeting.txt
+git add greeting.txt
+git commit -m "Update greeting in main branch"
+
+git merge feature
+
+# Resolve conflict by editing greeting.txt manually
+# Remove conflict markers and keep final version:
+# Hello from both main and feature branches!
+
+git add greeting.txt
+git commit -m "Resolve merge conflict between main and feature" 
+
+
+
+
+
+Undoing changes
+Case 1: staged changes
+git reset <file_name>
+git reset
+
+Case 2: Committed changes(for one commit)
+git reset HEAD~1
+
+Case 3: Committed changes(for many commits)
+git reset <commit hash>
+git reset --hard <commit hash>
+
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔄 Case 1: Undo staged changes
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📍 Commands:
+
+git reset <file_name>
+➤ Unstages a specific file (moves it from staging back to working directory).
+
+git reset
+➤ Unstages all staged files.
+
+💡 Example:
+git branch
+let's remove button tag
+git add .
+git status
+git reset index.html
+
+Note: Your changes in the file are still in the working directory. This is safe — it just removes the file from staging.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔁 Case 2: Undo the last commit
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📍 Command:
+
+git reset HEAD~1
+(or git reset HEAD^)
+
+💡 What it does:
+
+Moves HEAD and current branch pointer back by one commit
+
+Keeps your changes in the working directory and unstages them
+
+✅ Useful when:
+
+You committed too early or forgot to include something
+
+You want to edit the commit before redoing it
+
+👀 After running:
+
+git reset HEAD~1
+
+You can do:
+
+git add .
+git commit -m "New fixed commit"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔥 Case 3: Undo multiple commits
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📍 Commands:
+
+git reset <commit-hash>
+➤ Soft reset: moves HEAD to an older commit, keeps everything in working directory and unstaged.
+
+git reset --hard <commit-hash>
+⚠️ DANGEROUS: resets branch and deletes all commits, staged files, and working directory changes after the given commit.
+
+💡 Example:
+
+git log # copy the hash of the commit you want to go back to
+git reset --hard abc1234
+
+
+clone -> our project or others project -> local system
+
+Fork: A fork is a new repository that shares code and visibility settings with the original upstream repository.
+Fork is a rough copy.
